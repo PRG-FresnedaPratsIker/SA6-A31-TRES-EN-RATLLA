@@ -96,7 +96,7 @@ public class Tauler {
         for (int i = 0; i < dimensio; i++) {
             boolean tot = true;
             for (int j = 0; j < dimensio; j++) {
-                if(caselles[i][j] != tipus) {
+                if (caselles[i][j] != tipus) {
                     tot = false;
                     break;
                 }
@@ -115,20 +115,18 @@ public class Tauler {
             if (tot) return true;
         }
 
-
         boolean totDiag1 = true;
         for (int i = 0; i < dimensio; i++) {
-            if(caselles[i][i] != tipus) {
+            if (caselles[i][i] != tipus) {
                 totDiag1 = false;
                 break;
             }
         }
         if (totDiag1) return true;
 
-
         boolean totDiag2 = true;
         for (int i = 0; i < dimensio; i++) {
-            if(caselles[i][dimensio - 1 - i] != tipus) {
+            if (caselles[i][dimensio - 1 - i] != tipus) {
                 totDiag2 = false;
                 break;
             }
