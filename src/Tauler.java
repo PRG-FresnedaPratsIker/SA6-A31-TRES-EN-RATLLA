@@ -4,11 +4,12 @@ public class Tauler {
 
     private final int dimensio;
     private final EstatCasella[][] caselles;
+    private final Simbols simbols;
 
-
-    public Tauler(int dimensio) {
+    public Tauler(int dimensio, Simbols simbols) {
         this.dimensio = dimensio;
         this.caselles = new EstatCasella[dimensio][dimensio];
+        this.simbols = simbols;
         buidar();
     }
 
@@ -56,13 +57,11 @@ public class Tauler {
         }
     }
 
-    private char simbol(EstatCasella estat) {
-        if (estat == null) return ' ';
-        return switch (estat) {
-            case BUIT -> ' ';
-            case FITXA_X -> 'X';
-            case FITXA_O -> 'O';
-        };
+    private String simbol(EstatCasella estat) {
+        if (estat == null || estat == EstatCasella.BUIT) {
+            return " ";
+        }
+        return simbols.obtindreSimbol(estat);
     }
 
     public void posarFitxa(Coordenada coord, EstatCasella tipus) {

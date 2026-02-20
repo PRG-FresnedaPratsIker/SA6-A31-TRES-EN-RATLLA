@@ -1,9 +1,11 @@
 public class Jugador {
 
     private final EstatCasella tipus;
+    private final Simbols simbols;
 
-    public Jugador(EstatCasella tipus) {
+    public Jugador(EstatCasella tipus, Simbols simbols) {
         this.tipus = tipus;
+        this.simbols = simbols;
     }
 
     public void posarFitxa(Tauler tauler) {
@@ -47,7 +49,7 @@ public class Jugador {
     }
 
 
-    private char simbolFitxa() {
-        return tipus == EstatCasella.FITXA_X ? 'X' : 'O';
+    private String simbolFitxa() {
+        return simbols.obtindreSimbol(tipus);
     }
 }

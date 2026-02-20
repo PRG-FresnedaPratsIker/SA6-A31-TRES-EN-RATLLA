@@ -1,10 +1,13 @@
+import java.io.FileNotFoundException;
+
 public class TresEnRatlla {
 
     private Tauler tauler;
     private Jugador[] jugadors;
+    private Simbols simbols;
 
 
-    public TresEnRatlla() {
+    public TresEnRatlla() throws FileNotFoundException {
         int dimensio = 3;
 
         boolean diferent = GestorIO.solicitarConfirmacio("Vols un tauler de dimensio diferent de " + dimensio + "x" + dimensio + "?");
@@ -19,11 +22,16 @@ public class TresEnRatlla {
             }
         }
 
-        this.tauler = new Tauler(dimensio);
+        simbols = new Simbols();
+        simbols.seleccionar();
+
+        this.tauler = new Tauler(dimensio, simbols);
+
+
 
         this.jugadors = new Jugador[2];
-        this.jugadors[0] = new Jugador(EstatCasella.FITXA_X);
-        this.jugadors[1] = new Jugador(EstatCasella.FITXA_O);
+        this.jugadors[0] = new Jugador(EstatCasella.FITXA_X, simbols);
+        this.jugadors[1] = new Jugador(EstatCasella.FITXA_O, simbols);
     }
 
 
@@ -52,7 +60,7 @@ public class TresEnRatlla {
         GestorIO.tancar();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         TresEnRatlla joc = new TresEnRatlla();
         joc.jugar();
     }
