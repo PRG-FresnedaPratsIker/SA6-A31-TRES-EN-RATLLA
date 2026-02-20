@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Simbols {
@@ -7,13 +8,13 @@ public class Simbols {
     private int parellesSeleccionada;
     private int numParelles;
 
-    public Simbols() {
-
+    public Simbols() throws FileNotFoundException {
         this.parellesSeleccionada = 0;
+        carregar();
     }
 
     public void carregar() throws FileNotFoundException {
-        File fitxer = new File("/resources/config.joc");
+        File fitxer = new File("resources/config.joc");
 
         if(!fitxer.exists()) {
             errorExit("No s'ha trobat el fitxer config.joc", 1);
@@ -55,7 +56,7 @@ public class Simbols {
                 continue;
             }
 
-            if(l.matches("^.{1} {1}.{1}$]")) {
+            if(!l.matches("^.{1} {1}.{1}$")) {
                 errorExit("Format incorrecte a la linia " + linia + ". Format esperat: 'X Y'", linia);
             }
 
@@ -88,6 +89,41 @@ public class Simbols {
             errorExit("S'han trobat menys parelles de les indicades a la primera linia", linia);
         }
 
+    }
+
+    public void seleccionar() {
+        while (true) {
+            System.out.println("Selecciona una parella de simbols:");
+            for(int i = 0; i < numParelles; i++) {
+                System.out.println((i + 1) + ") " + parelles[i][0] + " " + parelles[i][1]);
+            }
+            System.out.println((numParelles + 1) + ") Aleatori");
+
+            int op = GestorIO.llegirEnter("Opcio: ");
+
+            if (op >= 1 && op <= numParelles) {
+                parellesSeleccionada = op - 1;
+                return;
+            }
+            if (op == numParelles + 1) {
+                parellesSeleccionada = new Random().nextInt(numParelles);
+                return;
+            }
+            System.out.println("Error: Opcio no valida");
+
+        }
+
+    }
+
+
+    public String obtindreSimbol(EstatCasella tipus) {
+        if(tipus == EstatCasella.FITXA_X) {
+            return parelles[parellesSeleccionada][0];
+        }
+        if(tipus == EstatCasella.FITXA_O) {
+            return parelles[parellesSeleccionada][1];
+        }
+        return " ";
     }
 
 
